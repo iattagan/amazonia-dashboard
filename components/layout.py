@@ -2,6 +2,7 @@
 
 from dash import html, dcc
 import dash_bootstrap_components as dbc
+from components.choropleth_map import get_choropleth_figure
 
 def serve_layout(app, anos_disponiveis, estados_disponiveis):
     """
@@ -51,58 +52,16 @@ def serve_layout(app, anos_disponiveis, estados_disponiveis):
             # ─────────────── Aba 2: Mapa Interativo ───────────────
             dcc.Tab(label="Mapa Interativo", children=[
                 html.Br(),
-                html.Label("Ano:"),
-                dcc.Slider(
-                    id="slider-mapa-ano",
-                    min=min(anos_disponiveis),
-                    max=max(anos_disponiveis),
-                    value=max(anos_disponiveis),
-                    marks={ano: str(ano) for ano in anos_disponiveis},
-                    step=1
-                ),
-                html.Br(),
-                dcc.Graph(id="mapa-desmatamento")
+                html.H4("Mapa de Desmatamento na Amazônia Legal (2023)"),
+                dcc.Graph(figure=get_choropleth_figure())
             ]),
-            
+
             # ─────────────── Aba 3: Sobre o Projeto ───────────────
             dcc.Tab(label="Sobre o Projeto", children=[
-                html.Div([
-                    html.H4("Contextualização"),
-                    html.P("O desmatamento na Amazônia é uma das maiores ameaças ambientais do século XXI, "
-                           "afetando biodiversidade, clima e populações locais. O PRODES, mantido pelo INPE, "
-                           "fornece dados anuais de desmatamento que permitem monitorar essas mudanças."),
-                    
-                    html.H4("Descrição do Problema"),
-                    html.Ul([
-                        html.Li("Exibir desmatamento anual por estado e por ano."),
-                        html.Li("Permitir ao usuário filtrar por intervalo de anos e por estado."),
-                        html.Li("Fornecer visualizações interativas (gráficos de barras, linhas e mapa)."),
-                        html.Li("Apresentar storytelling dentro da própria aplicação."),
-                    ]),
-                    
-                    html.H4("Proposta de Solução/Implementação"),
-                    html.P("A aplicação utiliza Python 3.x e a biblioteca Dash para construir um dashboard responsivo. "
-                           "Os dados do PRODES (terreno vetorial em GeoPackage) são carregados via GeoPandas. "
-                           "As visualizações usam Plotly Express. A estrutura contempla:\n"
-                           "- Módulo de leitura de dados (`data_loader.py`).\n"
-                           "- Funções de geração de figuras (`visualizations.py`).\n"
-                           "- Layout configurável com filtros e abas (`layout.py`).\n"
-                           "- Callbacks para interagir dinamicamente (`callbacks.py`)."),
-                    
-                    html.H4("Dificuldades e Limitações"),
-                    html.P("O principal desafio foi ajustar a camada correta do GeoPackage e agregar dados "
-                           "por estado e por ano sem comprometer a performance. Houve cuidado em usar "
-                           "`dissolve` para criar o choropleth de maneira eficiente. Limitações incluem "
-                           "a ausência de dados diários (apenas anuais) e o tamanho do GeoPackage que "
-                           "pode exigir mais memória em máquinas mais antigas."),
-                    
-                    html.H4("Conclusão"),
-                    html.P("Este dashboard atinge a categoria Avançado, pois agrega:\n"
-                           "- Três visualizações interativas (barras, linhas e mapa),\n"
-                           "- Filtros dinâmicos para intervalo de anos e estado,\n"
-                           "- Análise comparativa e storytelling embutido,\n"
-                           "- Design cuidado (tipografia simples, cores intuítivas e layout responsivo)."),
-                ], className="p-4")
-            ])
+                dcc.Store(id="store-section-index", data=0),
+                html.Div(id="conteudo-sobre-projeto"),
+                dbc.Button("Anterior", id="botao-anterior", color="secondary", className="me-2", n_clicks=0),
+                dbc.Button("Próximo", id="botao-proximo", color="primary", n_clicks=0),
+            ]),
         ])
     ], fluid=True)
