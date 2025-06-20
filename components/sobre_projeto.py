@@ -32,7 +32,7 @@ secoes_projeto = [
 
     dbc.Card([
         dbc.CardHeader(html.H4("🎯 Objetivo")),
-        dbc.CardBody(html.P("Criar uma aplicação web interativa para visualizar e analisar o desmatamento por estado e ano, promovendo consciência ambiental e subsidiando pesquisas."))
+        dbc.CardBody(html.P("Criar uma aplicação web interativa para visualizar e analisar o desmatamento por estado e ano, promovendo consciência ambiental e consequentemente podendo subsidiar pesquisas."))
     ], className="mb-4", style={"padding": "20px"}),
 
     dbc.Card([
@@ -66,14 +66,10 @@ secoes_projeto = [
     dbc.Card([
         dbc.CardHeader(html.H4("✅ Conclusão")),
         dbc.CardBody([
-            html.P("Este dashboard atende aos critérios de projeto *Avançado*, pois inclui:"),
-            html.Ul([
-                html.Li("Visualizações interativas (barras, linhas e mapa)."),
-                html.Li("Filtros dinâmicos por estado e ano."),
-                html.Li("Análise comparativa com storytelling implícito."),
-                html.Li("Design responsivo e acessível."),
-            ]),
-            html.P("É uma ferramenta robusta para análise ambiental, com potencial de expansão.")
+            html.P("O desenvolvimento deste dashboard permitiu aplicar na prática conceitos de visualização de dados e análise geoespacial, resultando em uma ferramenta clara, interativa e funcional."),
+            html.P("Através da integração de filtros dinâmicos, gráficos e mapas, a aplicação possibilita uma leitura acessível e informativa sobre a evolução do desmatamento na Amazônia Legal."),
+            html.P("Além de cumprir os objetivos propostos, o projeto oferece base para futuras melhorias, como integração com dados em tempo real e comparações entre diferentes regiões do Brasil."),
+            html.P("Assim, o painel se destaca como um recurso relevante para estudos ambientais e decisões voltadas à preservação da maior floresta tropical do mundo.")
         ])
     ], style={"padding": "20px"})
 ]
